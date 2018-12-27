@@ -3,7 +3,7 @@
 	<!-- 定义参数常量 -->
 	<!-- TRACE < DEBUG < INFO < WARN < ERROR -->
 	<!-- logger.trace("msg") logger.debug... -->
-	<property name="log.level" value="info" />
+	<property name="log.level" value="debug" />
 	<property name="log.maxHistory" value="30" />
 	<!-- 当tomcat启动时，可以从控制台看到${catalina.base}是在哪里 -->
 	<property name="log.filePath" value="${catalina.base}/logs/webapps" />
