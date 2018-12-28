@@ -7,14 +7,15 @@ $(function() {
 	// 由于店铺注册和编辑使用的是同一个页面，
 	// 该标识符用来标明本次是添加还是编辑操作
 	var isEdit = shopId ? true : false;
+	var baseUrl = '/springbackend';
 	// 用于店铺注册时候的店铺类别以及区域列表的初始化的URL
-	var initUrl = '/shopadmin/getshopinitinfo';
+	var initUrl = baseUrl + '/shopadmin/getshopinitinfo';
 	// 注册店铺的URL
-	var registerShopUrl = '/shopadmin/registershop';
+	var registerShopUrl = baseUrl + '/shopadmin/registershop';
 	// 编辑店铺前需要获取店铺信息，这里为获取当前店铺信息的URL
-	var shopInfoUrl = "/shopadmin/getshopbyid?shopId=" + shopId;
+	var shopInfoUrl = baseUrl + "/shopadmin/getshopbyid?shopId=" + shopId;
 	// 编辑店铺信息的URL
-	var editShopUrl = '/shopadmin/modifyshop';
+	var editShopUrl = baseUrl + '/shopadmin/modifyshop';
 	// 判断是编辑操作还是注册操作
 	if (!isEdit) {
 		getShopInitInfo();

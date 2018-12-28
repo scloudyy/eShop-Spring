@@ -61,17 +61,18 @@ REATE TABLE `tb_wechat_auth` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tb_shop_category` (
-  `shop_categoty_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `shop_categoty_name` varchar(100) NOT NULL DEFAULT '''''',
-  `shop_categoty_desc` varchar(1000) DEFAULT '''''',
+  `shop_category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `shop_category_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '''''',
+  `shop_category_desc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '''''',
+  `shop_category_img` varchar(1024) DEFAULT NULL,
   `priority` int(3) NOT NULL DEFAULT '0',
   `create_time` datetime DEFAULT NULL,
   `last_edit_time` datetime DEFAULT NULL,
   `parent_id` int(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`shop_categoty_id`),
+  PRIMARY KEY (`shop_category_id`),
   KEY `FK_SHOP_CATEGORY_SELF` (`parent_id`),
-  CONSTRAINT `FK_SHOP_CATEGORY_SELF` FOREIGN KEY (`parent_id`) REFERENCES `tb_shop_category` (`shop_categoty_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_SHOP_CATEGORY_SELF` FOREIGN KEY (`parent_id`) REFERENCES `tb_shop_category` (`shop_category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tb_shop` (
   `shop_id` int(10) unsigned NOT NULL AUTO_INCREMENT,

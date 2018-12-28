@@ -16,6 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class BaseTest {
     @Test
     public void basicTest(){
-        // just avoid error: "No runnable methods"
+        // Avoid error: "No runnable methods"
     }
 }
