@@ -1,4 +1,70 @@
-# 读写分离
+# Mysql主从同步
+
+## Master
+
+1. 配置my.cnf
+```
+vim /etc/mysql/my.cnf
+
+[mysqld]
+server-id = 1
+log-bin = master-bin
+ log-bin-index = master-bin.index
+```
+
+2. 重启mysql
+```
+service mysqld restart
+
+OR
+
+docker restart mysql_master
+```
+	
+3. 设置slave账户
+
+```
+create user 'repl'@'%' identified with mysql_native_password by 'password';
+
+grant replication slave on *.* to 'repl'@'%';
+
+flush privileges;
+```
+	
+4. 获取master信息
+
+```
+show master status;  # 表单中file和position在slave中会用到
+```
+
+## Slave
+
+1. 配置my.cnf 
+```
+vim /etc/mysql/my.cnf
+
+[mysqld]
+server-id = 2
+relay-log = slave-relay-bin
+relay-log-index = slave-relay-bin.index
+```
+2. 重启mysql
+3. 设置master
+```
+change master to master_host='172.17.0.1',master_port=3308,master_user='repl',master_password='password',master_log_file='master-bin.000001',master_log_pos=0;
+# 注意master_port不加引号。如果mysql运行在docker中，那么master的host是宿主机的桥接IP即docker0，port是宿主机映射到容器中master mysql 3306的那个端口
+```
+4. 启动
+```
+start slave
+```
+5. 查看状态
+
+```
+show slave status\G;  # \G代表竖列显示
+```
+
+# Spring读写分离
 
 MySQL配置主从数据库后，需要配置Spring和Mybatis使其向从库请求读操作，向主库请求写操作或者任何事物操作（事物涉及读写）
 
