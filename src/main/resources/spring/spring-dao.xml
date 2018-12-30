@@ -9,13 +9,8 @@
 	<!-- 1.配置数据库相关参数properties的属性：${url} -->
 	<context:property-placeholder location="classpath:jdbc.properties"/>
 	<!-- 2.数据库连接池 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-		<!--配置连接池属性-->
-		<property name="driverClass" value="${jdbc.driver}"/>
-		<property name="jdbcUrl" value="${jdbc.url}"/>
-		<property name="user" value="${jdbc.username}"/>
-		<property name="password" value="${jdbc.password}"/>
-
+	<bean id="abstractDataSource" abstract="true"
+		  class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<!-- c3p0连接池的私有属性 -->
 		<property name="maxPoolSize" value="30" />
 		<property name="minPoolSize" value="10" />
@@ -25,6 +20,37 @@
 		<property name="checkoutTimeout" value="10000" />
 		<!-- 当获取连接失败重试次数 -->
 		<property name="acquireRetryAttempts" value="2" />
+	</bean>
+	<bean id="mysql_master" parent="abstractDataSource">
+		<!-- 配置连接池属性 -->
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.master.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<bean id="mysql_slave" parent="abstractDataSource">
+		<!-- 配置连接池属性 -->
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.slave.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!-- 配置动态数据源，这儿targetDataSources就是路由数据源所对应的名称 -->
+	<bean id="dynamicDataSource" class="com.scloudyy.springbackend.dao.split.DynamicDataSource">
+		<property name="targetDataSources">
+			<map>
+				<!-- value是上面定义的master，slave的bean，key是DynamicDataSource里的loopupKey -->
+				<entry value-ref="mysql_master" key="master"></entry>
+				<entry value-ref="mysql_slave" key="slave"></entry>
+			</map>
+		</property>
+	</bean>
+	<!-- 懒加载，因为需要等到SQL语句正式执行时才能指定dataSource -->
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+		<property name="targetDataSource">
+			<ref bean="dynamicDataSource" />
+		</property>
 	</bean>
 
 
