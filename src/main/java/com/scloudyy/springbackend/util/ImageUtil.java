@@ -2,7 +2,6 @@ package com.scloudyy.springbackend.util;
 
 import com.scloudyy.springbackend.dto.ImageHolder;
 import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Position;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
