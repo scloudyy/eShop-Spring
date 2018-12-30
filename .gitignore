@@ -2,3 +2,6 @@ lib/
 out/
 target/
 .idea/
+
+.DS_Store
+catalina.base_IS_UNDEFINED/
