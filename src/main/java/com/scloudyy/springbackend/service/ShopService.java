@@ -7,4 +7,8 @@ import com.scloudyy.springbackend.exceptions.ShopOperationException;
 
 public interface ShopService {
     ShopExecution addShop(Shop shop, ImageHolder thumbnail) throws ShopOperationException;
+
+    Shop getShopById(long shopId);
+
+    ShopExecution modifyShop(Shop shop, ImageHolder thumbnail) throws ShopOperationException;
 }

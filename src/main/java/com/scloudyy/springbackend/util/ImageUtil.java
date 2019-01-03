@@ -120,4 +120,17 @@ public class ImageUtil {
         }
         return relativeAddr;
     }
+
+    public static void deleteFileOrPath(String storePath) {
+        File fileOrPath = new File(PathUtil.getImageBasePath() + storePath);
+        if (fileOrPath.exists()) {
+            if (fileOrPath.isDirectory()) {
+                File[] files = fileOrPath.listFiles();
+                for (File f : files) {
+                    f.delete();
+                }
+            }
+            fileOrPath.delete();
+        }
+    }
 }

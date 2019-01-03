@@ -55,9 +55,44 @@ public class ShopServiceImpl implements ShopService {
          return new ShopExecution(ShopStateEnum.CHECK, shop);
     }
 
+    @Override
+    public Shop getShopById(long shopId) {
+        return shopDao.queryByShopId(shopId);
+    }
+
+    @Transactional
+    @Override
+    public ShopExecution modifyShop(Shop shop, ImageHolder thumbnail) throws ShopOperationException {
+        if (shop == null || shop.getShopId() == null) {
+            return new ShopExecution(ShopStateEnum.NULL_SHOP);
+        }
+        try {
+            if (thumbnail.getImage() != null && thumbnail.getImageName() != null
+                    && !thumbnail.getImageName().equals("")) {
+                Shop tmpShop = shopDao.queryByShopId(shop.getShopId());
+                if (tmpShop.getShopImg() != null) {
+                    ImageUtil.deleteFileOrPath(tmpShop.getShopImg());
+                }
+                addShopImg(shop, thumbnail);
+            }
+            shop.setLastEditTime(new Date());
+            int effectedNum = shopDao.updateShop(shop);
+            if (effectedNum <= 0) {
+                return new ShopExecution(ShopStateEnum.INNER_ERROR);
+            } else {
+                shop = shopDao.queryByShopId(shop.getShopId());
+                return new ShopExecution(ShopStateEnum.SUCCESS, shop);
+            }
+        } catch (Exception e) {
+            throw new ShopOperationException("modifyShop error: " + e.getMessage());
+        }
+    }
+
     private void addShopImg(Shop shop, ImageHolder thumbnail) {
         String dest = PathUtil.getShopImagePath(shop.getShopId());
         String shopImgAddr = ImageUtil.generateThumbnail(thumbnail, dest);
         shop.setShopImg(shopImgAddr);
     }
+
+
 }

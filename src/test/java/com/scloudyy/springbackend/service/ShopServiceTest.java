@@ -9,6 +9,9 @@ import com.scloudyy.springbackend.entity.Shop;
 import com.scloudyy.springbackend.entity.ShopCategory;
 import com.scloudyy.springbackend.enums.ShopStateEnum;
 import com.scloudyy.springbackend.exceptions.ShopOperationException;
+import com.scloudyy.springbackend.util.ImageUtil;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +27,7 @@ public class ShopServiceTest extends BaseTest {
     private ShopService shopService;
 
     @Test
+    @Ignore
     public void testAddShop() throws ShopOperationException, FileNotFoundException {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
@@ -44,5 +48,24 @@ public class ShopServiceTest extends BaseTest {
         ImageHolder imageHolder = new ImageHolder(shopImg.getName(), inputStream);
         ShopExecution shopExecution = shopService.addShop(shop, imageHolder);
         assertEquals(ShopStateEnum.CHECK.getState(), shopExecution.getState());
+    }
+
+    @Test
+    public void testModifyShop() throws FileNotFoundException {
+        for (long id = 1; id <= 25; id++) {
+            Shop shop = shopService.getShopById(id);
+            if (shop != null) {
+                System.out.println("shopName: " + shop.getShopName());
+                File shopImg = new File("/Users/scloudyy/Desktop/1.jpg");
+                InputStream inputStream = new FileInputStream(shopImg);
+                ImageHolder imageHolder = new ImageHolder(shopImg.getName(), inputStream);
+                ShopExecution shopExecution = shopService.modifyShop(shop, imageHolder);
+                assertEquals(shopExecution.getState(), ShopStateEnum.SUCCESS.getState());
+                System.out.println("image is: " + shopExecution.getShop().getShopImg());
+            } else {
+                System.out.println("this shop does't exist");
+            }
+
+        }
     }
 }
