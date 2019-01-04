@@ -144,6 +144,8 @@ public class ShopManagementController {
         return modelMap;
     }
 
+    @PostMapping("/modifyshop")
+    @ResponseBody
     private Map<String, Object> modifyShop(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<>();
         if (!CodeUtil.checkVerifyCode(request)) {
