@@ -11,4 +11,6 @@ public interface ShopService {
     Shop getShopById(long shopId);
 
     ShopExecution modifyShop(Shop shop, ImageHolder thumbnail) throws ShopOperationException;
+
+    ShopExecution getShopList(Shop shopCondition, int pageIndex, int pageSize);
 }

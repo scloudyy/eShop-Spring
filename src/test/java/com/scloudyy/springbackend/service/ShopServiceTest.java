@@ -9,8 +9,7 @@ import com.scloudyy.springbackend.entity.Shop;
 import com.scloudyy.springbackend.entity.ShopCategory;
 import com.scloudyy.springbackend.enums.ShopStateEnum;
 import com.scloudyy.springbackend.exceptions.ShopOperationException;
-import com.scloudyy.springbackend.util.ImageUtil;
-import org.junit.Assert;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +50,7 @@ public class ShopServiceTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testModifyShop() throws FileNotFoundException {
         for (long id = 1; id <= 25; id++) {
             Shop shop = shopService.getShopById(id);
@@ -67,5 +67,16 @@ public class ShopServiceTest extends BaseTest {
             }
 
         }
+    }
+
+    @Test
+    public void testGetShopList() {
+        Shop shopCondition = new Shop();
+        PersonInfo owner = new PersonInfo();
+        owner.setUserId(1L);
+        shopCondition.setOwner(owner);
+        ShopExecution shopExecution = shopService.getShopList(shopCondition, 1, 5);
+        System.out.println("店铺列表的大小：" + shopExecution.getShopList().size());
+        System.out.println("店铺总数：" + shopExecution.getCount());
     }
 }

@@ -99,9 +99,10 @@ public class ShopManagementController {
 
         // 2.注册店铺
         if (shop != null && shopImg != null) {
-            // PersonInfo owner = (PersonInfo) request.getSession().getAttribute("user");
             PersonInfo owner = new PersonInfo();
             owner.setUserId(1L);
+            request.getSession().setAttribute("user", owner);
+            owner = (PersonInfo) request.getSession().getAttribute("user");
             shop.setOwner(owner);
             ShopExecution shopExecution = null;
             try {
@@ -194,5 +195,56 @@ public class ShopManagementController {
             modelMap.put("errMsg", "请输入店铺Id");
             return modelMap;
         }
+    }
+
+    @GetMapping("/getshoplist")
+    @ResponseBody
+    private Map<String, Object> getShopList(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<>();
+        PersonInfo owner = new PersonInfo();
+        owner.setUserId(1L);
+        request.getSession().setAttribute("user", owner);
+        owner = (PersonInfo) request.getSession().getAttribute("user");
+        Shop shopCondition = new Shop();
+        shopCondition.setOwner(owner);
+        try {
+            ShopExecution shopExecution = shopService.getShopList(shopCondition, 0, 100);
+            if (shopExecution.getState() == ShopStateEnum.SUCCESS.getState()) {
+                modelMap.put("shopList", shopExecution.getShopList());
+                request.getSession().setAttribute("shopList", shopExecution.getShopList());
+                modelMap.put("user", owner);
+                modelMap.put("success", true);
+            } else {
+                modelMap.put("success", false);
+            }
+        } catch (Exception e) {
+            modelMap.put("errMsg", e.getMessage());
+            modelMap.put("success", false);
+        }
+        return modelMap;
+    }
+
+    @GetMapping("/getshopmanagementinfo")
+    @ResponseBody
+    private Map<String, Object> getShopManagementInfo(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<>();
+        long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+        if (shopId <= 0) {
+            Object currentShopObj = request.getSession().getAttribute("currentShop");
+            if (currentShopObj == null) {
+                modelMap.put("redirect", true);
+                modelMap.put("url", "/springbackend/shopadmin/shoplist");
+            } else {
+                Shop currentShop = (Shop) currentShopObj;
+                modelMap.put("redirect", false);
+                modelMap.put("shopId", currentShop.getShopId());
+            }
+        } else {
+            Shop currentShop = new Shop();
+            currentShop.setShopId(shopId);
+            request.getSession().setAttribute("currentShop", currentShop);
+            modelMap.put("redirect", false);
+        }
+        return modelMap;
     }
 }
