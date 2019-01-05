@@ -1,7 +1,7 @@
 $(function() {
 	var baseUrl = "/springbackend";
 	var listUrl = baseUrl + '/shopadmin/getproductcategorylist';
-	var addUrl = baseUrl + 'shopadmin/addproductcategorys';
+	var addUrl = baseUrl + '/shopadmin/addproductcategorys';
 	var deleteUrl = baseUrl + '/shopadmin/removeproductcategory';
 	getList();
 	function getList() {
