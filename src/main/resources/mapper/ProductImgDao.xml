@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scloudyy.springbackend.dao.ProductImgDao">
+    <insert id="batchInsertProductImg" parameterType="java.util.List"
+            useGeneratedKeys="true" keyColumn="product_img_id" keyProperty="productImgId">
+        INSERT INTO
+		tb_product_img(img_addr, img_desc, priority, create_time, product_id)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.imgAddr}, #{item.imgDesc}, #{item.priority},
+            #{item.createTime}, #{item.productId})
+        </foreach>
+    </insert>
+</mapper>
