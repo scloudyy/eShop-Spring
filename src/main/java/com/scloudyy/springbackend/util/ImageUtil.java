@@ -111,7 +111,7 @@ public class ImageUtil {
         logger.debug("current absolute addr is :" + PathUtil.getImageBasePath() + relativeAddr);
 
         try {
-            Thumbnails.of(thumbnail.getImage()).size(337, 640)
+            Thumbnails.of(thumbnail.getImage()).size(337, 400)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.jpg")), 0.25f)
                     .outputQuality(0.9f).toFile(dest);
         } catch (IOException e) {

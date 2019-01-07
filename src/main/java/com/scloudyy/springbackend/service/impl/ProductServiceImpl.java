@@ -65,6 +65,42 @@ public class ProductServiceImpl implements ProductService {
         return new ProductExecution(ProductStateEnum.SUCCESS, product);
     }
 
+    @Override
+    public Product getProduct(long productId) {
+        return productDao.queryProductById(productId);
+    }
+
+    @Override
+    @Transactional
+    public ProductExecution modifyProduct(Product product, ImageHolder thumbnail, List<ImageHolder> productImgHolderList) throws ProductOperationException {
+        if (product != null && product.getProductId() != null && product.getShop() != null &&
+                product.getShop().getShopId() != null) {
+            if (thumbnail != null) {
+                Product tmpProduct = productDao.queryProductById(product.getProductId());
+                if (tmpProduct.getImgAddr() != null) {
+                    ImageUtil.deleteFileOrPath(tmpProduct.getImgAddr());
+                }
+                addProductTumbnail(product, thumbnail);
+            }
+            if (productImgHolderList != null && productImgHolderList.size() > 0) {
+                deleteProductImageList(product);
+                addProductImageList(product, productImgHolderList);
+            }
+            try {
+                int effectedNum = productDao.updateProduct(product);
+                if (effectedNum == 1) {
+                    return new ProductExecution(ProductStateEnum.SUCCESS);
+                } else {
+                    throw new ProductOperationException("Failed to modify product");
+                }
+            } catch (Exception e) {
+                throw new ProductOperationException(e.getMessage());
+            }
+        } else {
+            return new ProductExecution(ProductStateEnum.EMPTY);
+        }
+    }
+
     private void addProductTumbnail(Product product, ImageHolder thumbnail) {
         String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
         String thumbnailAddr = ImageUtil.generateThumbnail(thumbnail, dest);
@@ -91,5 +127,13 @@ public class ProductServiceImpl implements ProductService {
         } catch (Exception e) {
             throw new ProductOperationException(e.getMessage());
         }
+    }
+
+    private void deleteProductImageList(Product product) {
+        List<ProductImg> productImgList = productImgDao.queryProductImgList(product.getProductId());
+        for (ProductImg productImg : productImgList) {
+            ImageUtil.deleteFileOrPath(productImg.getImgAddr());
+        }
+        productImgDao.deleteProductImgByProductId(product.getProductId());
     }
 }
