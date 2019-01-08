@@ -5,11 +5,13 @@ import com.scloudyy.springbackend.entity.Product;
 import com.scloudyy.springbackend.entity.ProductCategory;
 import com.scloudyy.springbackend.entity.Shop;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,6 +21,7 @@ public class ProductDaoTest extends BaseTest {
     private ProductDao productDao;
 
     @Test
+    @Ignore
     public void testInsertProduct() {
         Shop shop1 = new Shop();
         shop1.setShopId(1L);
@@ -65,12 +68,14 @@ public class ProductDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testQueryProductById() {
         Product product = productDao.queryProductById(1L);
         System.out.println(product.getProductName());
     }
 
     @Test
+    @Ignore
     public void testUpdateProduct() {
         Product product = new Product();
         Shop shop = new Shop();
@@ -80,5 +85,15 @@ public class ProductDaoTest extends BaseTest {
         product.setProductDesc("hello");
         int effectedNum = productDao.updateProduct(product);
         assertEquals(1, effectedNum);
+    }
+
+    @Test
+    public void testQueryProductList() {
+        Product productCondition = new Product();
+        productCondition.setProductName("测试");
+        List<Product> productList = productDao.queryProductList(productCondition, 0, 5);
+        System.out.println("List size of QueryProductList is " + productList.size());
+        int count = productDao.queryProductCount(productCondition);
+        assertEquals(count, productList.size());
     }
 }

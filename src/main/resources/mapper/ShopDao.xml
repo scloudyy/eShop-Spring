@@ -136,8 +136,7 @@
 			<if test="shopCondition.enableStatus != null">
 				and s.enable_status = #{shopCondition.enableStatus}
 			</if>
-			<if
-					test="shopCondition.owner != null and shopCondition.owner.userId != null">
+			<if test="shopCondition.owner != null and shopCondition.owner.userId != null">
 				and s.owner_id = #{shopCondition.owner.userId}
 			</if>
 			AND

@@ -12,6 +12,8 @@ public class ProductExecution {
     private Product product;
     private List<Product> productList;
 
+    private int count;
+
     public ProductExecution() {}
 
     /**
@@ -66,5 +68,13 @@ public class ProductExecution {
 
     public void setProductList(List<Product> productList) {
         this.productList = productList;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

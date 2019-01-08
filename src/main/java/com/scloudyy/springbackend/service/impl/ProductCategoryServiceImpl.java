@@ -1,6 +1,7 @@
 package com.scloudyy.springbackend.service.impl;
 
 import com.scloudyy.springbackend.dao.ProductCategoryDao;
+import com.scloudyy.springbackend.dao.ProductDao;
 import com.scloudyy.springbackend.dto.ProductCategoryExecution;
 import com.scloudyy.springbackend.entity.ProductCategory;
 import com.scloudyy.springbackend.enums.ProductCategoryStateEnum;
@@ -15,10 +16,12 @@ import java.util.List;
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
     private final ProductCategoryDao productCategoryDao;
+    private final ProductDao productDao;
 
     @Autowired
-    public ProductCategoryServiceImpl(ProductCategoryDao productCategoryDao) {
+    public ProductCategoryServiceImpl(ProductCategoryDao productCategoryDao, ProductDao productDao) {
         this.productCategoryDao = productCategoryDao;
+        this.productDao = productDao;
     }
 
     @Override
@@ -50,6 +53,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Transactional
     public ProductCategoryExecution deleteProductCategory(long productCategoryId, long shopId)
             throws ProductCategoryOperationException {
+        try {
+            int effectNum = productDao.updateProductCategoryToNull(productCategoryId);
+            if (effectNum <= 0) {
+                throw new ProductCategoryOperationException("Failed to updateProductCategoryToNull");
+            }
+        } catch (Exception e) {
+            throw new ProductCategoryOperationException(e.getMessage());
+        }
         try {
             int effectedNum = productCategoryDao.deleteProductCategory(productCategoryId, shopId);
             if (effectedNum <= 0) {
