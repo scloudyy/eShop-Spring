@@ -1,13 +1,12 @@
 $(function() {
 	// 从URL里获取productId参数的值
 	var productId = getQueryString('productId');
-	var baseUrl = "/springbackend";
 	// 通过productId获取商品信息的URL
-	var infoUrl = baseUrl + '/shopadmin/getproductbyid?productId=' + productId;
+	var infoUrl = '/o2o/shopadmin/getproductbyid?productId=' + productId;
 	// 获取当前店铺设定的商品类别列表的URL
-	var categoryUrl = baseUrl + '/shopadmin/getproductcategorylist';
+	var categoryUrl = '/o2o/shopadmin/getproductcategorylist';
 	// 更新商品信息的URL
-	var productPostUrl = baseUrl + '/shopadmin/modifyproduct';
+	var productPostUrl = '/o2o/shopadmin/modifyproduct';
 	// 由于商品添加和编辑使用的是同一个页面，
 	// 该标识符用来标明本次是添加还是编辑操作
 	var isEdit = false;
@@ -17,7 +16,7 @@ $(function() {
 		isEdit = true;
 	} else {
 		getCategory();
-		productPostUrl = baseUrl + '/shopadmin/addproduct';
+		productPostUrl = '/o2o/shopadmin/addproduct';
 	}
 
 	// 获取需要编辑的商品的商品信息，并赋值给表单
@@ -122,7 +121,7 @@ $(function() {
 				// 获取表单里输入的验证码
 				var verifyCodeActual = $('#j_captcha').val();
 				if (!verifyCodeActual) {
-					$.toast('Please input verify code');
+					$.toast('请输入验证码！');
 					return;
 				}
 				formData.append("verifyCodeActual", verifyCodeActual);
@@ -136,10 +135,10 @@ $(function() {
 					cache : false,
 					success : function(data) {
 						if (data.success) {
-							$.toast('Submit success');
+							$.toast('提交成功！');
 							$('#captcha_img').click();
 						} else {
-							$.toast('Submit failed');
+							$.toast('提交失败！');
 							$('#captcha_img').click();
 						}
 					}

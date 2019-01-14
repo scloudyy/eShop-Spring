@@ -1,8 +1,8 @@
 $(function() {
 	// 获取此店铺下的商品列表的URL
-	var listUrl = '/springbackend/shopadmin/getproductlistbyshop?pageIndex=1&pageSize=999';
+	var listUrl = '/o2o/shopadmin/getproductlistbyshop?pageIndex=1&pageSize=999';
 	// 商品下架URL
-	var statusUrl = '/springbackend/shopadmin/modifyproduct';
+	var statusUrl = '/o2o/shopadmin/modifyproduct';
 	getList();
 	/**
 	 * 获取此店铺下的商品列表
@@ -19,11 +19,11 @@ $(function() {
 				// 商品名称，优先级，上架\下架(含productId)，编辑按钮(含productId)
 				// 预览(含productId)
 				productList.map(function(item, index) {
-					var textOp = "Down Shelve";
+					var textOp = "下架";
 					var contraryStatus = 0;
 					if (item.enableStatus == 0) {
 						// 若状态值为0，表明是已下架的商品，操作变为上架(即点击上架按钮上架相关商品)
-						textOp = "Up Shelve";
+						textOp = "上架";
 						contraryStatus = 1;
 					} else {
 						contraryStatus = 0;
@@ -41,7 +41,7 @@ $(function() {
 							+ item.productId
 							+ '" data-status="'
 							+ item.enableStatus
-							+ '">Modify</a>'
+							+ '">编辑</a>'
 							+ '<a href="#" class="status" data-id="'
 							+ item.productId
 							+ '" data-status="'
@@ -53,7 +53,7 @@ $(function() {
 							+ item.productId
 							+ '" data-status="'
 							+ item.enableStatus
-							+ '">View</a>'
+							+ '">预览</a>'
 							+ '</div>'
 							+ '</div>';
 				});
@@ -71,7 +71,7 @@ $(function() {
 						var target = $(e.currentTarget);
 						if (target.hasClass('edit')) {
 							// 如果有class edit则点击就进入店铺信息编辑页面，并带有productId参数
-							window.location.href = '/springbackend/shopadmin/productoperation?productId='
+							window.location.href = '/o2o/shopadmin/productoperation?productId='
 									+ e.currentTarget.dataset.id;
 						} else if (target.hasClass('status')) {
 							// 如果有class status则调用后台功能上/下架相关商品，并带有productId参数
@@ -79,7 +79,7 @@ $(function() {
 									e.currentTarget.dataset.status);
 						} else if (target.hasClass('preview')) {
 							// 如果有class preview则去前台展示系统该商品详情页预览商品情况
-							window.location.href = '/springbackend/frontend/productdetail?productId='
+							window.location.href = '/o2o/frontend/productdetail?productId='
 									+ e.currentTarget.dataset.id;
 						}
 					});
@@ -88,7 +88,7 @@ $(function() {
 		var product = {};
 		product.productId = id;
 		product.enableStatus = enableStatus;
-		$.confirm('Sure?', function() {
+		$.confirm('确定么?', function() {
 			// 上下架相关商品
 			$.ajax({
 				url : statusUrl,
@@ -100,10 +100,10 @@ $(function() {
 				dataType : 'json',
 				success : function(data) {
 					if (data.success) {
-						$.toast('Success');
+						$.toast('操作成功！');
 						getList();
 					} else {
-						$.toast('Failed');
+						$.toast('操作失败！');
 					}
 				}
 			});

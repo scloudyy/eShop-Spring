@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Product Operation</title>
+<title>商品编辑</title>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 <link rel="shortcut icon" href="/favicon.ico">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,7 +17,7 @@
 </head>
 <body>
 	<header class="bar bar-nav">
-		<h1 class="title">Product Operation</h1>
+		<h1 class="title">商品编辑</h1>
 	</header>
 	<div class="content">
 		<div class="list-block">
@@ -28,9 +28,9 @@
 							<i class="icon icon-form-name"></i>
 						</div>
 						<div class="item-inner">
-							<div class="item-title label">Product Name</div>
+							<div class="item-title label">商品名称</div>
 							<div class="item-input">
-								<input type="text" id="product-name" placeholder="Product Name">
+								<input type="text" id="product-name" placeholder="商品名称">
 							</div>
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner">
-							<div class="item-title label">Category</div>
+							<div class="item-title label">目录</div>
 							<div class="item-input">
 								<select id="category">
 								</select>
@@ -55,9 +55,9 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner">
-							<div class="item-title label">Priority</div>
+							<div class="item-title label">优先级</div>
 							<div class="item-input">
-								<input type="number" id="priority" placeholder="Higher priority with bigger number">
+								<input type="number" id="priority" placeholder="数字越大越排前面">
 							</div>
 						</div>
 					</div>
@@ -68,9 +68,9 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner">
-							<div class="item-title label">Point</div>
+							<div class="item-title label">积分</div>
 							<div class="item-input">
-								<input type="number" id="point" placeholder="Product Point">
+								<input type="number" id="point" placeholder="商品积分">
 							</div>
 						</div>
 					</div>
@@ -81,9 +81,9 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner">
-							<div class="item-title label">Original Price</div>
+							<div class="item-title label">原价</div>
 							<div class="item-input">
-								<input type="number" id="normal-price" placeholder="Optional">
+								<input type="number" id="normal-price" placeholder="可选">
 							</div>
 						</div>
 					</div>
@@ -94,9 +94,9 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner">
-							<div class="item-title label">Current Price</div>
+							<div class="item-title label">现价</div>
 							<div class="item-input">
-								<input type="number" id="promotion-price" placeholder="Optional">
+								<input type="number" id="promotion-price" placeholder="可选">
 							</div>
 						</div>
 					</div>
@@ -120,7 +120,7 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner">
-							<div class="item-title label">Thumbnail</div>
+							<div class="item-title label">缩略图</div>
 							<div class="item-input">
 								<input type="file" id="small-img">
 							</div>
@@ -133,7 +133,7 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner detail-img-div">
-							<div class="item-title label">Images</div>
+							<div class="item-title label">详情图片</div>
 							<div class="item-input" id="detail-img">
 								<input type="file" class="detail-img">
 								<!-- <input type="file" class="detail-img">
@@ -148,9 +148,9 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner">
-							<div class="item-title label">Product Description</div>
+							<div class="item-title label">商品描述</div>
 							<div class="item-input">
-								<textarea id="product-desc" placeholder="Product Description"></textarea>
+								<textarea id="product-desc" placeholder="商品描述"></textarea>
 							</div>
 						</div>
 					</div>
@@ -161,11 +161,11 @@
 							<i class="icon icon-form-email"></i>
 						</div>
 						<div class="item-inner">
-							<label for="j_captcha" class="item-title label">Verify Code</label> <input
+							<label for="j_captcha" class="item-title label">验证码</label> <input
 								id="j_captcha" name="j_captcha" type="text"
-								class="form-control in" placeholder="Verify Code" />
+								class="form-control in" placeholder="验证码" />
 							<div class="item-input">
-								<img id="captcha_img" alt="Change" title="Change"
+								<img id="captcha_img" alt="点击更换" title="点击更换"
 									onclick="changeVerifyCode(this)" src="../Kaptcha" />
 							</div>
 						</div>
@@ -177,11 +177,11 @@
 		<div class="content-block">
 			<div class="row">
 				<div class="col-50">
-					<a href="/springbackend/shopadmin/productmanagement"
-						class="button button-big button-fill button-danger" id="back">Back</a>
+					<a href="/o2o/shopadmin/productmanagement"
+						class="button button-big button-fill button-danger" id="back">返回商品管理</a>
 				</div>
 				<div class="col-50">
-					<a href="#" class="button button-big button-fill" id="submit">Submit</a>
+					<a href="#" class="button button-big button-fill" id="submit">提交</a>
 				</div>
 			</div>
 		</div>

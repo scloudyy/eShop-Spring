@@ -2,7 +2,7 @@ $(function() {
 	getlist();
 	function getlist(e) {
 		$.ajax({
-			url : "/springbackend/shopadmin/getshoplist",
+			url : "/o2o/shopadmin/getshoplist",
 			type : "get",
 			dataType : "json",
 			success : function(data) {
@@ -32,18 +32,18 @@ $(function() {
 
 	function shopStatus(status) {
 		if (status == 0) {
-			return 'Checking';
+			return '审核中';
 		} else if (status == -1) {
-			return 'Illegal';
+			return '店铺非法';
 		} else if (status == 1) {
-			return 'Approved';
+			return '审核通过';
 		}
 	}
 
 	function goShop(status, id) {
 		if (status == 1) {
-			return '<a href="/springbackend/shopadmin/shopmanagement?shopId=' + id
-					+ '">Entry</a>';
+			return '<a href="/o2o/shopadmin/shopmanagement?shopId=' + id
+					+ '">进入</a>';
 		} else {
 			return '';
 		}

@@ -1,8 +1,7 @@
 $(function() {
-	var baseUrl = "/springbackend";
-	var listUrl = baseUrl + '/shopadmin/getproductcategorylist';
-	var addUrl = baseUrl + '/shopadmin/addproductcategorys';
-	var deleteUrl = baseUrl + '/shopadmin/removeproductcategory';
+	var listUrl = '/o2o/shopadmin/getproductcategorylist';
+	var addUrl = '/o2o/shopadmin/addproductcategorys';
+	var deleteUrl = '/o2o/shopadmin/removeproductcategory';
 	getList();
 	function getList() {
 		$
@@ -25,7 +24,7 @@ $(function() {
 													+ '</div>'
 													+ '<div class="col-33"><a href="#" class="button delete" data-id="'
 													+ item.productCategoryId
-													+ '">Delete</a></div>'
+													+ '">删除</a></div>'
 													+ '</div>';
 										});
 								$('.category-wrap').append(tempHtml);
@@ -36,9 +35,9 @@ $(function() {
 			.click(
 					function() {
 						var tempHtml = '<div class="row row-product-category temp">'
-								+ '<div class="col-33"><input class="category-input category" type="text" placeholder="Category Name"></div>'
-								+ '<div class="col-33"><input class="category-input priority" type="number" placeholder="Priority"></div>'
-								+ '<div class="col-33"><a href="#" class="button delete">Delete</a></div>'
+								+ '<div class="col-33"><input class="category-input category" type="text" placeholder="分类名"></div>'
+								+ '<div class="col-33"><input class="category-input priority" type="number" placeholder="优先级"></div>'
+								+ '<div class="col-33"><a href="#" class="button delete">删除</a></div>'
 								+ '</div>';
 						$('.category-wrap').append(tempHtml);
 					});
@@ -60,10 +59,10 @@ $(function() {
 			contentType : 'application/json',
 			success : function(data) {
 				if (data.success) {
-					$.toast('Post success！');
+					$.toast('提交成功！');
 					getList();
 				} else {
-					$.toast('Post failed！');
+					$.toast('提交失败！');
 				}
 			}
 		});
@@ -78,7 +77,7 @@ $(function() {
 	$('.category-wrap').on('click', '.row-product-category.now .delete',
 			function(e) {
 				var target = e.currentTarget;
-				$.confirm('Sure?', function() {
+				$.confirm('确定么?', function() {
 					$.ajax({
 						url : deleteUrl,
 						type : 'POST',
@@ -88,10 +87,10 @@ $(function() {
 						dataType : 'json',
 						success : function(data) {
 							if (data.success) {
-								$.toast('Delete success！');
+								$.toast('删除成功！');
 								getList();
 							} else {
-								$.toast('Delete failed！');
+								$.toast('删除失败！');
 							}
 						}
 					});
