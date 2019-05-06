@@ -1,7 +1,8 @@
-lib/
-out/
-target/
-.idea/
-
 .DS_Store
-catalina.base_IS_UNDEFINED/
+
+spring/lib/
+spring/out/
+spring/target/
+spring/.idea/
+spring/catalina.base_IS_UNDEFINED/
+spring/.DS_Store
