@@ -1,0 +1,10 @@
+lib/
+out/
+target/
+
+.idea
+*.iws
+*.iml
+*.ipr
+
+.DS_Store
