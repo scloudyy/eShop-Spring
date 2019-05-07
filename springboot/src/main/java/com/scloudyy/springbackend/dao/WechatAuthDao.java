@@ -1,0 +1,24 @@
+package com.scloudyy.springbackend.dao;
+
+import com.scloudyy.springbackend.entity.WechatAuth;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface WechatAuthDao {
+	/**
+	 * 通过openId查询对应本平台的微信帐号
+	 * 
+	 * @param openId
+	 * @return
+	 */
+	WechatAuth queryWechatInfoByOpenId(String openId);
+
+	/**
+	 * 添加对应本平台的微信帐号
+	 * 
+	 * @param wechatAuth
+	 * @return
+	 */
+	int insertWechatAuth(WechatAuth wechatAuth);
+
+}

@@ -1,4 +1,4 @@
-package com.scloudyy.o2o;
+package com.scloudyy.springbackend;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

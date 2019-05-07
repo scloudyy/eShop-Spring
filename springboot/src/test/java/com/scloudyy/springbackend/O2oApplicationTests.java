@@ -1,4 +1,4 @@
-package com.scloudyy.o2o;
+package com.scloudyy.springbackend;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

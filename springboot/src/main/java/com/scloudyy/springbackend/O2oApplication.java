@@ -1,4 +1,4 @@
-package com.scloudyy.o2o;
+package com.scloudyy.springbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

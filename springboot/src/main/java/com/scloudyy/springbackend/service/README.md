@@ -1,0 +1,3 @@
+service曾需要实现对事物的管理，比如注册shop，先要在数据库中增加shop的id，然后返回id，根据id创建图片文件夹，尽兴shop image的处理。这一系列的操作要保证原子性。
+
+service中的函数要用@Transactional注解，并且抛出RuntimeException才能被回滚
